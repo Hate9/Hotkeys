@@ -1,19 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
-using Hate9;
+using System.Reflection;
 
-namespace Hotkeys
+namespace Hate9
 {
     public class Hotkeys : Form
     {
-        [System.Runtime.InteropServices.DllImport("user32.dll")]
+        [DllImport("user32.dll")]
         public static extern bool RegisterHotKey(IntPtr hWnd, int id, int fsModifiers, int vk);
-        [System.Runtime.InteropServices.DllImport("user32.dll")]
+        [DllImport("user32.dll")]
         public static extern bool UnregisterHotKey(IntPtr hWnd, int id);
 
         public enum KeyModifier
@@ -28,10 +25,9 @@ namespace Hotkeys
         private Identification ident;
         private Dictionary<int, Action> actions;
 
-
         public Hotkeys()
         {
-            int seed = ((GuidAttribute)(typeof(Program).Assembly).GetCustomAttributes(typeof(GuidAttribute), true)[0]).Value.GetHashCode();
+            int seed = Assembly.GetCallingAssembly().GetHashCode();
 
             ident = new Identification(seed);
             actions = new Dictionary<int, Action>();
