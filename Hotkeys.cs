@@ -46,11 +46,12 @@ namespace Hate9
             }
         }
 
-        public void SetHotkey(Hotkey hotkey)
+        public int SetHotkey(Hotkey hotkey)
         {
             int id = ident.CreateId();
             actions.Add(id, hotkey.OnPress);
             RegisterHotKey(Handle, id, hotkey.modifiers, hotkey.key);
+            return id;
         }
 
         public void UnsetHotkey(int id)
