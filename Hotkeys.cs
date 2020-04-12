@@ -54,11 +54,12 @@ namespace Hate9
             return id;
         }
 
-        public void UnsetHotkey(int id)
+        public bool UnsetHotkey(int id)
         {
-            UnregisterHotKey(Handle, id);
-            actions.Remove(id);
-            ident.DeleteId(id);
+            bool a = UnregisterHotKey(Handle, id);
+            bool b = actions.Remove(id);
+            bool c = ident.DeleteId(id);
+            return a && b && c;
         }
 
         public void UnsetHotkeys()
